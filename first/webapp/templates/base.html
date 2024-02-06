@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>WebApp</title>
+</head>
+<body>
+    <a href="/">Главная</a>
+    <a href="/registration">Регистрация</a>
+    <a href="authorization">Авторизация</a>
+    <a href="/todo">Список дел</a>
+    <a href="/category">Категории</a>
+    <br>
+    <br>
+    <h2>{% block header %}{% endblock header %}</h2>
+    <p>{% block message %}{% endblock message %}</p>
+    {% block content %}{% endblock content %}
+</body>
+</html>

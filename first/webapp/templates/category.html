@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h2>Отредактируйте ваши категории</h2>
+	<form action="" method="post">
+	{% csrf_token %}
+		<label for="description">Введите категории</label>
+		<input type="text" id="description" placeholder="Какого рода у вас дела?" name="name" required>
+		<br>
+		<button name="Add" type="submit">Добавить категорию</button>
+		<button name="Delete" formnovalidate="" type="submit">Удалить категорию</button>
+
+		{% for category in categories %}
+			<br>
+			<input type="checkbox" class="checkbox" name="check" value="{{category.id}}">
+			<span class="complete-">{{ category.name }}</span>
+		{% endfor %}
+	</form>
+{% endblock content %}

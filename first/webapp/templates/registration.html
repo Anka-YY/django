@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block header %}Регистрация{% endblock header %}
+{% block message %}{{ message }}{% endblock message %}
+
+{% block content %}
+    <form name="registration" method="post" action="toRegistration">
+        {% csrf_token %}
+        <p>
+            <label for="login">Логин</label>
+            <input type="text" id="login" name="login" value="1">
+        </p>
+        <p>
+            <label for="pass">Пароль</label>
+            <input type="password" id="pass" name="password" value="1">
+        </p>
+        <p>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="1@1.ru">
+        </p>
+        <input type="submit">
+        <input type="reset">
+    </form>
+{% endblock content%}

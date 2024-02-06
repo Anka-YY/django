@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block header %}Авторизация{% endblock header %}
+
+{% block content %}
+    <form name="authorization" method="post" action="toAuthorization">
+        {% csrf_token %}
+        <p>
+            <label for="login">Логин</label>
+            <input type="text" id="login" name="login" value="1">
+        </p>
+        <p>
+            <label for="pass">Пароль</label>
+            <input type="password" id="pass" name="password" value="1">
+        </p>
+        <input type="submit">
+        <input type="reset">
+    </form>
+{% endblock content%}
+{% block message %}{{ message }}{% endblock message %}
