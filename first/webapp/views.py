@@ -4,6 +4,8 @@ from .models import Registration, Category, TodoList
 from django.http import HttpResponse
 from datetime import datetime
 
+todo_edit_id = ''
+
 
 # Открывается главная страница
 def index(request):
@@ -70,9 +72,7 @@ def getDataAuthorization(request):
 
 def todo(request):
     todos = TodoList.objects.filter(due_date='2000-01-01 00:00:00')
-    print(todos)
     todo_done = TodoList.objects.exclude(due_date='2000-01-01 00:00:00')
-    print(todo_done)
     categories = Category.objects.all()
     return render(request, 'todo.html', {'todos': todos, 'categories': categories, 'todo_done': todo_done})
 
@@ -104,6 +104,26 @@ def todoDone(request):
             date = datetime.today()
             todo = TodoList.objects.filter(id=int(checkedlist[i])).update(due_date=date)
     return redirect('/todo')
+
+
+def toEdit(request):
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        checkedlist = request.POST.getlist('checkedbox')
+        todo = TodoList.objects.get(id=int(checkedlist[0]))
+        global todo_edit_id
+        todo_edit_id = int(todo.id)
+    return render(request, 'edit.html', {'categories': categories, 'todo': todo})
+
+
+def todoEdit(request):
+     if request.method == 'POST':
+        title = request.POST['description']
+        category = request.POST['category_select']
+        category_id = Category.objects.get(name=category)
+        content = request.POST['content']
+        TodoList.objects.filter(id=todo_edit_id).update(title=title, content=content, category_id=category_id.id)
+        return redirect('/todo')
 
 
 def category(request):

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block header %}Редактирование задания{% endblock header %}
+
+{% block content %}
+<form action="todoEdit" method="post">
+    {% csrf_token %}
+    <p>
+        <label for="description">Введите дело</label>
+        <input type="text" id="description" name="description" value="{{ todo.title }}" required>
+    </p>
+    
+    <p>
+        <label for="content">Дополнительное поле</label>
+        <input type="text" id="content" name="content" value="{{ todo.content }}">
+    </p>
+    
+    <p><label for="category">Категории</label>
+        <select id="category" name="category_select" required>
+            <option>{{ todo.category.name }}</option>
+            {% for category in categories %}
+                {% if category != todo.category %}
+                    <option class="" value="{{ category.name }}" name="{{ category.name }}">
+                    {{ category.name }}
+                    </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </p>
+    <button type="submit">Сохранить задание</button>
+</form>
+
+<form action="todo" method="post">
+    {% csrf_token %}
+    <p>
+        <button type="submit">Отмена</button>  
+    </p>
+</form>
+{% endblock content%}
+{% block message %}{{ message }}{% endblock message %}

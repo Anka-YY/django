@@ -32,37 +32,40 @@
 		<p>
 			<input type="submit" formmethod="post" formaction="/todoDelete" value="Удалить задание">
 			<input type="submit" formmethod="post" formaction="/todoDone" value="Выполнено">
+			<input type="submit" formmethod="post" formaction="/toEdit" value="Редактирование">
 		</p>
 
-		<tr>
-			<td>
-				<p style="margin-top: 20px; font-size: 19px; font-style: italic;">Список не выполненных дел:</p>
-				{% for todo in todos %}
-				<p>
-					<input type="checkbox" name="checkedbox" value="{{ todo.id }}">
-					{{ todo.title }}
-					{{ todo.content }}
-					{{ todo.category.name }}
-					{{ todo.created }}
-					<!-- {{ todo.due_date }} -->
-				</p>
-				{% endfor %}
-			</td>
-				
-			<td>
-				<p style="margin-top: 20px; font-size: 19px; font-style: italic;">Список выполненных дел:</p>
-				{% for todo in todo_done %}
-				<p>
-					<input type="checkbox" name="checkedbox" value="{{ todo.id }}">
-					{{ todo.title }}
-					{{ todo.content }}
-					{{ todo.category.name }}
-					{{ todo.created }}
-					{{ todo.due_date }}
-				</p>
-				{% endfor %}
-			</td>
-		</tr>
+		<table cols="2" frame="above">
+			<tr>
+				<td style="background-color: rgb(255, 223, 223);">
+					<p style="margin-top: 10px; font-size: 19px; font-style: italic;">Список не выполненных дел:</p>
+					{% for todo in todos %}
+					<p>	
+						<input type="checkbox" name="checkedbox" value="{{ todo.id }}">
+						{{ todo.title }}
+						{{ todo.content }}
+						{{ todo.category.name }}
+						{{ todo.created }}
+						<!-- {{ todo.due_date }} -->
+					</p>
+					{% endfor %}
+				</td>
+					
+				<td style="background-color: rgb(235, 255, 226);">
+					<p style="margin-top: 10px; font-size: 19px; font-style: italic;">Список выполненных дел:</p>
+					{% for todo in todo_done %}
+					<p>
+						<input type="checkbox" name="checkedbox" value="{{ todo.id }}">
+						{{ todo.title }}
+						{{ todo.content }}
+						{{ todo.category.name }}
+						{{ todo.created }}
+						{{ todo.due_date }}
+					</p>
+					{% endfor %}
+				</td>
+			</tr>
+		</table>
 	</form>
 {% endblock content %}
 
