@@ -32,7 +32,7 @@
 		<p>
 			<input type="submit" formmethod="post" formaction="/todoDelete" value="Удалить задание">
 			<input type="submit" formmethod="post" formaction="/todoDone" value="Выполнено">
-			<input type="submit" formmethod="post" formaction="/toEdit" value="Редактирование">
+			<!-- <input type="submit" formmethod="post" formaction="/toEdit" value="Редактирование"> -->
 		</p>
 
 		<table cols="2" frame="above">
@@ -46,8 +46,8 @@
 						{{ todo.content }}
 						{{ todo.category.name }}
 						{{ todo.created }}
-						<!-- {{ todo.due_date }} -->
 					</p>
+					<input type="submit" formmethod="post" formaction="/toEdit/{{ todo.id }}" value="Редактирование">
 					{% endfor %}
 				</td>
 					
@@ -62,6 +62,7 @@
 						{{ todo.created }}
 						{{ todo.due_date }}
 					</p>
+					<input type="submit" formmethod="post" formaction="/toEdit/{{ todo.id }}" value="Редактирование">
 					{% endfor %}
 				</td>
 			</tr>

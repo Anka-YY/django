@@ -1,10 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Registration, Category, TodoList
 from django.http import HttpResponse
 from datetime import datetime
-
-todo_edit_id = ''
 
 
 # Открывается главная страница
@@ -70,6 +69,7 @@ def getDataAuthorization(request):
 
 
 
+# Переход к странице Списка дел todo.html
 def todo(request):
     todos = TodoList.objects.filter(due_date='2000-01-01 00:00:00')
     todo_done = TodoList.objects.exclude(due_date='2000-01-01 00:00:00')
@@ -77,6 +77,7 @@ def todo(request):
     return render(request, 'todo.html', {'todos': todos, 'categories': categories, 'todo_done': todo_done})
 
 
+# Фукция добавления нового задания
 def todoAdd(request):
     if request.method == 'POST':
         title = request.POST['description']
@@ -88,6 +89,7 @@ def todoAdd(request):
         return redirect('/todo')
 
 
+# Функция удаления заданий
 def todoDelete(request):
     if request.method == 'POST':
         checkedlist = request.POST.getlist('checkedbox')
@@ -97,6 +99,7 @@ def todoDelete(request):
     return redirect('/todo')
 
 
+# Функция отметки заданий как выполнено
 def todoDone(request):
     if request.method == 'POST':
         checkedlist = request.POST.getlist('checkedbox')
@@ -106,26 +109,26 @@ def todoDone(request):
     return redirect('/todo')
 
 
-def toEdit(request):
+# Переход к странице редактирования задания
+def toEdit(request, id):
     categories = Category.objects.all()
     if request.method == 'POST':
-        checkedlist = request.POST.getlist('checkedbox')
-        todo = TodoList.objects.get(id=int(checkedlist[0]))
-        global todo_edit_id
-        todo_edit_id = int(todo.id)
-    return render(request, 'edit.html', {'categories': categories, 'todo': todo})
+        todo = TodoList.objects.get(id=id)
+        return render(request, 'edit.html', {'categories': categories, 'todo': todo})
 
 
-def todoEdit(request):
+# Функция редактирования задания
+def todoEdit(request, id):
      if request.method == 'POST':
         title = request.POST['description']
         category = request.POST['category_select']
         category_id = Category.objects.get(name=category)
         content = request.POST['content']
-        TodoList.objects.filter(id=todo_edit_id).update(title=title, content=content, category_id=category_id.id)
+        TodoList.objects.filter(id=id).update(title=title, content=content, category_id=category_id.id)
         return redirect('/todo')
 
 
+# Перехрд к странице Категории
 def category(request):
     categories = Category.objects.all()
     if request.method == 'POST':

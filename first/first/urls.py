@@ -19,16 +19,16 @@ from django.urls import path
 from webapp import views
 
 urlpatterns = [
+    path('todoEdit/<int:id>', views.todoEdit, name="todoEdit"),
+    path('toEdit/<int:id>', views.toEdit, name='toEdit'),
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('authorization', views.authorization, name='authorization'),
 	path('category', views.category, name="Category"),
     path('registration', views.registration, name='registration'),
     path('toAuthorization', views.getDataAuthorization),
-    path('toEdit', views.toEdit, name='toEdit'),
     path('todo', views.todo),
     path('todoAdd', views.todoAdd, name='todoAdd'),
-    path('todoEdit', views.todoEdit, name="todoEdit"),
     path('todoDelete', views.todoDelete, name='todoDelete'),
     path('todoDone', views.todoDone, name='todoDone'),
     path('toRegistration', views.sendDataRegistration),

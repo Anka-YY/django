@@ -2,7 +2,7 @@
 {% block header %}Редактирование задания{% endblock header %}
 
 {% block content %}
-<form action="todoEdit" method="post">
+<form action="/todoEdit/{{ todo.id }}" method="post">
     {% csrf_token %}
     <p>
         <label for="description">Введите дело</label>
@@ -29,11 +29,9 @@
     <button type="submit">Сохранить задание</button>
 </form>
 
-<form action="todo" method="post">
-    {% csrf_token %}
-    <p>
-        <button type="submit">Отмена</button>  
-    </p>
-</form>
+<p>
+    <!-- <input type="submit" formaction="/todo" value="Отмена"/> -->
+    <a href="/todo">Вернуться</a>
+</p>
 {% endblock content%}
 {% block message %}{{ message }}{% endblock message %}
